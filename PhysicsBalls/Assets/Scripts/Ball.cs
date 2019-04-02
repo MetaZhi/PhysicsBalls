@@ -5,11 +5,14 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     public float Factor = 5;
+    Vector3 startPos;
+    Rigidbody2D rigidbody;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        rigidbody = GetComponent<Rigidbody2D>();
+        startPos = transform.position;
     }
 
     // Update is called once per frame
@@ -26,8 +29,19 @@ public class Ball : MonoBehaviour
 
             Vector2 dir = worldPos - transform.position;
 
-            GetComponent<Rigidbody2D>().AddForce(dir.normalized * Factor, ForceMode2D.Impulse);
+            rigidbody.AddForce(dir.normalized * Factor, ForceMode2D.Impulse);
+            rigidbody.gravityScale = 1;
         }
 
+        if (transform.position.y < -4) {
+            Reset();
+        }
+    }
+
+    void Reset(){
+        transform.position = startPos;
+        rigidbody.velocity = Vector2.zero;
+        rigidbody.angularVelocity = 0;
+        rigidbody.gravityScale = 0;
     }
 }
