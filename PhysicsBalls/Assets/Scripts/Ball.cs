@@ -51,5 +51,7 @@ public class Ball : MonoBehaviour
         rigidbody.gravityScale = 0;
 
         isRunning = false;
+
+        GetComponentInParent<BallManager>().OnBallReset();
     }
 }

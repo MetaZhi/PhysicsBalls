@@ -28,11 +28,29 @@ public class BallManager : MonoBehaviour
             if (ball.GetComponent<Ball>().isRunning)
                 yield break;
         }
-        
+
         foreach (Transform ball in transform)
         {
             ball.GetComponent<Ball>().Shoot(startPos);
             yield return new WaitForSeconds(0.5f);
         }
+    }
+
+    public void OnBallReset()
+    {
+        if (IsAllReset()) {
+            BlockManager.Instance.RaiseBlocks();
+        }
+    }
+
+    bool IsAllReset()
+    {
+        foreach (Transform ball in transform)
+        {
+            if (ball.GetComponent<Ball>().isRunning)
+                return false;
+        }
+
+        return true;
     }
 }
