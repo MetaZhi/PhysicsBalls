@@ -5,6 +5,7 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     public float Factor = 5;
+    public bool isRunning = false;
     Vector3 startPos;
     Rigidbody2D rigidbody;
 
@@ -18,30 +19,37 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // 计算鼠标抬起时的方向
-        if (Input.GetMouseButtonUp(0)){
-            Vector3 mousePos = Input.mousePosition;
-
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-            Debug.Log(worldPos);
-
-            worldPos.z = 0;
-
-            Vector2 dir = worldPos - transform.position;
-
-            rigidbody.AddForce(dir.normalized * Factor, ForceMode2D.Impulse);
-            rigidbody.gravityScale = 1;
-        }
-
-        if (transform.position.y < -4) {
+        if (transform.position.y < -4)
+        {
             Reset();
         }
     }
 
-    void Reset(){
+    public void Shoot(Vector3 startPos)
+    {
+        transform.position = startPos;
+        Vector3 mousePos = Input.mousePosition;
+
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        Debug.Log(worldPos);
+
+        worldPos.z = 0;
+
+        Vector2 dir = worldPos - transform.position;
+
+        rigidbody.AddForce(dir.normalized * Factor, ForceMode2D.Impulse);
+        rigidbody.gravityScale = 1;
+
+        isRunning = true;
+    }
+
+    void Reset()
+    {
         transform.position = startPos;
         rigidbody.velocity = Vector2.zero;
         rigidbody.angularVelocity = 0;
         rigidbody.gravityScale = 0;
+
+        isRunning = false;
     }
 }
