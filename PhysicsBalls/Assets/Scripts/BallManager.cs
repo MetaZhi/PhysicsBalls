@@ -35,16 +35,21 @@ public class BallManager : MonoBehaviour
 
     IEnumerator ShootBalls()
     {
+        // 如果还有球在running，就不发射
         foreach (Transform ball in transform)
         {
             if (ball.GetComponent<Ball>().isRunning)
                 yield break;
-
-            ball.GetComponent<Ball>().isRunning = true;
         }
 
+        Physics2D.IgnoreLayerCollision(9, 9);
+
+        // 逐个发射小球
         foreach (Transform ball in transform)
         {
+            if (ball.GetComponent<Ball>().isRunning)
+                continue;
+
             ball.GetComponent<Collider2D>().sharedMaterial = Bounce;
             ball.GetComponent<Ball>().Shoot(startPos);
             yield return new WaitForSeconds(0.5f);
@@ -109,6 +114,8 @@ public class BallManager : MonoBehaviour
             var rig = ball.GetComponent<Rigidbody2D>();
             rig.isKinematic = false;
             rig.gravityScale = 1;
+
+            Physics2D.IgnoreLayerCollision(9, 9, false);
 
             ball.GetComponent<Collider2D>().sharedMaterial = NoBounce;
             Debug.Log(ball.name);

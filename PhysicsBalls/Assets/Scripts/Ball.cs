@@ -36,6 +36,9 @@ public class Ball : MonoBehaviour
         transform.position = startPos;
         Vector3 mousePos = Input.mousePosition;
 
+        rigidbody.velocity = Vector2.zero;
+        rigidbody.angularVelocity = 0;
+
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
         Debug.Log(worldPos);
 

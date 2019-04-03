@@ -12,13 +12,17 @@ public class Block : MonoBehaviour
         {
             hp = value;
             textMesh.text = hp.ToString();
+            Sprite.color = GetColorByHP(HP);
         }
     }
+
+    private SpriteRenderer Sprite;
     TextMesh textMesh;
 
     // Start is called before the first frame update
     void Start()
     {
+        Sprite = GetComponent<SpriteRenderer>();
         textMesh = GetComponentInChildren<TextMesh>();
         HP = Random.Range(1, 10);
     }
@@ -39,9 +43,15 @@ public class Block : MonoBehaviour
             deductHp = HP;
 
         HP -= deductHp;
+
         // 加分
         GameManager.Instance.AddScore(deductHp);
         if (HP == 0)
             Destroy(gameObject);
+    }
+
+    Color GetColorByHP(int hp)
+    {
+        return Color.Lerp(Color.yellow, Color.magenta, hp/100f);
     }
 }

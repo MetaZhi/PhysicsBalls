@@ -22,6 +22,10 @@ public class PlusItem : MonoBehaviour
         obj.transform.SetParent(collider.gameObject.transform.parent);
 
         obj.GetComponent<Ball>().isRunning = true;
+        var oldRig = collider.gameObject.GetComponent<Rigidbody2D>();
+        var rig = obj.GetComponent<Rigidbody2D>();
+        rig.velocity = oldRig.velocity;
+        rig.angularVelocity = oldRig.angularVelocity;
 
         Destroy(gameObject);
     }
