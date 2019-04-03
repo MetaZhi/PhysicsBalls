@@ -35,11 +35,13 @@ public class BallManager : MonoBehaviour
         {
             if (ball.GetComponent<Ball>().isRunning)
                 yield break;
+
+            ball.GetComponent<Ball>().isRunning = true;
         }
 
         foreach (Transform ball in transform)
         {
-            ball.GetComponent<Rigidbody2D>().sharedMaterial = Bounce;
+            ball.GetComponent<Collider2D>().sharedMaterial = Bounce;
             ball.GetComponent<Ball>().Shoot(startPos);
             yield return new WaitForSeconds(0.5f);
         }
@@ -47,7 +49,9 @@ public class BallManager : MonoBehaviour
 
     public void OnBallReset()
     {
-        if (IsAllReset()) {
+        if (IsAllReset())
+        {
+            Debug.Log("AllReset");
             BlockManager.Instance.RaiseBlocks();
         }
     }
@@ -68,21 +72,30 @@ public class BallManager : MonoBehaviour
         bool isLeft = ball.transform.position.x < 0;
 
         var seq = LeanTween.sequence();
-        if (isLeft){
+        if (isLeft)
+        {
             seq.append(LeanTween.move(ball, LeftBottom, 0.3f));
             seq.append(LeanTween.move(ball, LeftTop, 0.6f));
             seq.append(LeanTween.move(ball, LeftEnd, 0.1f));
         }
-        else{
+        else
+        {
             seq.append(LeanTween.move(ball, RightBottom, 0.3f));
             seq.append(LeanTween.move(ball, RightTop, 0.6f));
             seq.append(LeanTween.move(ball, RightEnd, 0.1f));
         }
 
-        seq.append(()=>{
+        seq.append(() =>
+        {
             ball.GetComponent<Ball>().isRunning = false;
-            ball.GetComponent<Rigidbody2D>().isKinematic = false;
-            ball.GetComponent<Rigidbody2D>().sharedMaterial = NoBounce;
+            ball.GetComponent<Ball>().isReseting = false;
+            var rig = ball.GetComponent<Rigidbody2D>();
+            rig.isKinematic = false;
+            rig.gravityScale = 1;
+
+            ball.GetComponent<Collider2D>().sharedMaterial = NoBounce;
+            Debug.Log(ball.name);
+            OnBallReset();
         });
     }
 }

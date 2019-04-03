@@ -20,6 +20,9 @@ public class PlusItem : MonoBehaviour
     {
         GameObject obj = Instantiate(collider.gameObject);
         obj.transform.SetParent(collider.gameObject.transform.parent);
+
+        obj.GetComponent<Ball>().isRunning = true;
+
         Destroy(gameObject);
     }
 }

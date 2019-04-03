@@ -337,7 +337,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 264670151}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d6603efc81c6dca468ec97e56079ab19, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -676,7 +676,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 503521879}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d6603efc81c6dca468ec97e56079ab19, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1031,7 +1031,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 763857677}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d6603efc81c6dca468ec97e56079ab19, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1393,7 +1393,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 835437545}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d6603efc81c6dca468ec97e56079ab19, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1625,7 +1625,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 985847209}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d6603efc81c6dca468ec97e56079ab19, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1826,6 +1826,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 645620001ded47b4e82f6a364a14dc2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Bounce: {fileID: 6200000, guid: d6603efc81c6dca468ec97e56079ab19, type: 2}
+  NoBounce: {fileID: 6200000, guid: 5e0f36dbbdfa0f94cbab0fd02fe84265, type: 2}
   LeftBottom: {fileID: 102725359}
   LeftTop: {fileID: 1120251097}
   LeftEnd: {fileID: 665419009}
@@ -2364,7 +2366,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 1699392961}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d6603efc81c6dca468ec97e56079ab19, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

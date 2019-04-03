@@ -6,6 +6,7 @@ public class Ball : MonoBehaviour
 {
     public float Factor = 5;
     public bool isRunning = false;
+    public bool isReseting = false;
     public int Attack = 1;
     Vector3 startPos;
     Rigidbody2D rigidbody;
@@ -22,7 +23,7 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.y < -4)
+        if (transform.position.y < -4 && !isReseting)
         {
             Reset();
         }
@@ -30,6 +31,7 @@ public class Ball : MonoBehaviour
 
     public void Shoot(Vector3 startPos)
     {
+        rigidbody.gravityScale = 0;
         transform.position = startPos;
         Vector3 mousePos = Input.mousePosition;
 
@@ -51,13 +53,17 @@ public class Ball : MonoBehaviour
         rigidbody.velocity = Vector2.zero;
         rigidbody.angularVelocity = 0;
         rigidbody.isKinematic = true;
-
-        isRunning = false;
+        isReseting = true;
 
         GetComponentInParent<BallManager>().ResetBall(gameObject);
     }
 
-    void OnCollisionEnter2D(Collision2D collision){
-        source.PlayOneShot(source.clip);
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Block"))
+        {
+            source.PlayOneShot(source.clip);
+            rigidbody.gravityScale = 1;
+        }
     }
 }
