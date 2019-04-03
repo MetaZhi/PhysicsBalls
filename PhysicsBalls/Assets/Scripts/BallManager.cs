@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,16 +15,19 @@ public class BallManager : MonoBehaviour
     public Transform RightEnd;
     Vector3 startPos;
 
+    public static BallManager Instance { get; private set; }
+
     // Start is called before the first frame update
     void Start()
     {
+        Instance = this;
         startPos = transform.GetChild(0).position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && GameManager.Instance.canShoot)
         {
             StartCoroutine(ShootBalls());
         }
@@ -44,6 +48,19 @@ public class BallManager : MonoBehaviour
             ball.GetComponent<Collider2D>().sharedMaterial = Bounce;
             ball.GetComponent<Ball>().Shoot(startPos);
             yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    internal void ResetBalls()
+    {
+        for (int i = 3; i < transform.childCount; i++)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
+
+        foreach (Transform item in transform)
+        {
+            item.GetComponent<Ball>().Restart();
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -64,6 +65,15 @@ public class Ball : MonoBehaviour
         {
             source.PlayOneShot(source.clip);
             rigidbody.gravityScale = 1;
+        }
+    }
+
+    internal void Restart()
+    {
+        if (Attack == 2)
+        {
+            transform.localScale *= 1 / 1.5f;
+            Attack = 1;
         }
     }
 }

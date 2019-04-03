@@ -36,6 +36,8 @@ public class BlockManager : MonoBehaviour
         }
 
         BuildBlock();
+
+        CheckGameOver();
     }
 
     void BuildBlock()
@@ -72,5 +74,27 @@ public class BlockManager : MonoBehaviour
         }
 
         order++;
+    }
+
+    internal void ResetBlocks()
+    {
+        foreach (Transform item in transform)
+        {
+            Destroy(item.gameObject);
+        }
+
+        BuildBlock();
+    }
+
+    void CheckGameOver()
+    {
+        foreach (Transform block in transform)
+        {
+            if (block.transform.position.y > HighestRowY)
+            {
+                Debug.Log("游戏结束");
+                GameManager.Instance.OnGameOver();
+            }
+        }
     }
 }
