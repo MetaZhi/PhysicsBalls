@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BallManager : MonoBehaviour
 {
+    public LineRenderer Line;
     public PhysicsMaterial2D Bounce;
     public PhysicsMaterial2D NoBounce;
     public Transform LeftBottom;
@@ -29,7 +30,21 @@ public class BallManager : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0) && GameManager.Instance.canShoot)
         {
+            Line.enabled = false;
             StartCoroutine(ShootBalls());
+        }
+
+        if (Input.GetMouseButtonDown(0)) {
+            Line.enabled = true;
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Debug.Log(worldPos);
+
+            worldPos.z = 0;
+            Line.SetPosition(1, worldPos);
         }
     }
 
