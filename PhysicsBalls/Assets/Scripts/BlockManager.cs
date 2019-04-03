@@ -5,6 +5,8 @@ using UnityEngine;
 public class BlockManager : MonoBehaviour
 {
     public GameObject[] BlockPrefabs;
+    public GameObject[] ItemPrefabs;
+    public float ItemProbability = 0.1f;
     public float LowestRowY;
     public float HighestRowY = 3;
     public float RowInerval = 0.75f;
@@ -48,12 +50,24 @@ public class BlockManager : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
+            // 随机该位置是否有砖块
             if (Random.Range(0, 2) == 1)
             {
-                int index = Random.Range(0, BlockPrefabs.Length);
-                GameObject obj = Instantiate(BlockPrefabs[index]);
-                obj.transform.SetParent(transform);
-                obj.transform.position = new Vector2(startX + ColumnInterval * i, LowestRowY);
+                float randomSeed = Random.Range(0, 1f);
+                if (randomSeed < ItemProbability) // 生成一个道具
+                {
+                    int index = Random.Range(0, ItemPrefabs.Length);
+                    GameObject obj = Instantiate(ItemPrefabs[index]);
+                    obj.transform.SetParent(transform);
+                    obj.transform.position = new Vector2(startX + ColumnInterval * i, LowestRowY);
+                }
+                else // 生成一个砖块
+                {
+                    int index = Random.Range(0, BlockPrefabs.Length);
+                    GameObject obj = Instantiate(BlockPrefabs[index]);
+                    obj.transform.SetParent(transform);
+                    obj.transform.position = new Vector2(startX + ColumnInterval * i, LowestRowY);
+                }
             }
         }
 

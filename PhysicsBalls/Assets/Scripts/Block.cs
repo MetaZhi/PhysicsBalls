@@ -32,9 +32,15 @@ public class Block : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("enter!!!");
-        HP -= 1;
+        Ball ball = collision.gameObject.GetComponent<Ball>();
+        int deductHp = ball.Attack;
+        // 如果砖块的血量小于小球的攻击力，只扣除小球的血量
+        if (HP < ball.Attack)
+            deductHp = HP;
+
+        HP -= deductHp;
         // 加分
-        GameManager.Instance.AddScore(1);
+        GameManager.Instance.AddScore(deductHp);
         if (HP == 0)
             Destroy(gameObject);
     }

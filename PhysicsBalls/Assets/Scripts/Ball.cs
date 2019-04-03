@@ -6,6 +6,7 @@ public class Ball : MonoBehaviour
 {
     public float Factor = 5;
     public bool isRunning = false;
+    public int Attack = 1;
     Vector3 startPos;
     Rigidbody2D rigidbody;
 
