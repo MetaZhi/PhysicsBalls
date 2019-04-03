@@ -33,6 +33,8 @@ public class Block : MonoBehaviour
     {
         Debug.Log("enter!!!");
         HP -= 1;
+        // 加分
+        GameManager.Instance.AddScore(1);
         if (HP == 0)
             Destroy(gameObject);
     }
