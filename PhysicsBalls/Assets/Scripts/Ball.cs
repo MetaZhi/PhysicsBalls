@@ -9,11 +9,13 @@ public class Ball : MonoBehaviour
     public int Attack = 1;
     Vector3 startPos;
     Rigidbody2D rigidbody;
+    AudioSource source;
 
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
+        source = GetComponent<AudioSource>();
         startPos = transform.position;
     }
 
@@ -54,5 +56,9 @@ public class Ball : MonoBehaviour
         isRunning = false;
 
         GetComponentInParent<BallManager>().OnBallReset();
+    }
+
+    void OnCollisionEnter2D(Collision2D collision){
+        source.PlayOneShot(source.clip);
     }
 }
