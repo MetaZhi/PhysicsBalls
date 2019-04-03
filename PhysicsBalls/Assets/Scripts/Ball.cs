@@ -40,22 +40,21 @@ public class Ball : MonoBehaviour
 
         Vector2 dir = worldPos - transform.position;
 
+        rigidbody.isKinematic = false;
         rigidbody.AddForce(dir.normalized * Factor, ForceMode2D.Impulse);
-        rigidbody.gravityScale = 1;
 
         isRunning = true;
     }
 
     void Reset()
     {
-        transform.position = startPos;
         rigidbody.velocity = Vector2.zero;
         rigidbody.angularVelocity = 0;
-        rigidbody.gravityScale = 0;
+        rigidbody.isKinematic = true;
 
         isRunning = false;
 
-        GetComponentInParent<BallManager>().OnBallReset();
+        GetComponentInParent<BallManager>().ResetBall(gameObject);
     }
 
     void OnCollisionEnter2D(Collision2D collision){
